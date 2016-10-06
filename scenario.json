@@ -1,0 +1,9 @@
+{
+  "serif": [
+    {
+      "input": "/test/",
+      "output": "It works !"
+    }
+  ],
+  "understand": "I don't understand."
+}
