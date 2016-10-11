@@ -16,6 +16,7 @@ module.exports = class TwitterClient extends Client {
             '1.0A',
             null,
             'HMAC-SHA1')
+        this._parseStream = TwitterClient.clojure_parseStream()
         this.receiveReply(id)
     }
 
@@ -45,9 +46,13 @@ module.exports = class TwitterClient extends Client {
         request.on('response', response => {
             response.setEncoding('utf8')
             response.on('data', chunk => {
-                var data = TwitterClient._parseStream(chunk)
+                //console.dir(chunk)
+                var data = this._parseStream(chunk)
                 if (data)
                     this.emit('receive', data)
+            })
+            response.on('end', chunk => {
+                console.dir(chunk)
             })
         })
         request.on('error', error => {
@@ -56,19 +61,29 @@ module.exports = class TwitterClient extends Client {
         request.end()
     }
 
-    static _parseStream(data) {
-        var index, json = ''
-        while ((index = data.indexOf("\r\n")) > -1) {
-            json = data.slice(0, index)
-            data = data.slice(index + 2)
-        }
+    static clojure_parseStream() {
+        var buff = ""
+        return function (data) {
+            var index,json = ''
+            buff += data
+            while ((index = buff.indexOf("\r\n")) > -1) {
+                json = buff.slice(0, index)
+                buff = buff.slice(index + 2)
+            }
 
-        if (json.length > 0) {
-            try {
-                return JSON.parse(json)
-            } catch (error) {
-                console.warn(error)
+            if (json.length > 0) {
+                try {
+                    return JSON.parse(json)
+                } catch (error) {
+                    console.warn(error)
+                }
             }
         }
     }
 }
+
+var Twitter = require('./TwitterClient')
+var twitter = new Twitter(require('../setting.json').twitter, 'twitter')
+twitter.on('receive', data => {
+    console.dir(data)
+})
