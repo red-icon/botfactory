@@ -7,9 +7,9 @@ describe('Ai', function () {
     var ai = new Ai(scenario)
     describe('#input', function () {
         it('macth input', function (done) {
-            ai.input(serif[0].input)
+            ai.input('aaaa' + serif[0].input + 'aaaa')
                 .then(data => {
-                    assert(data == serif[0].output)
+                    assert(data === serif[0].output)
                     done()
                 })
                 .catch(done)
@@ -17,7 +17,7 @@ describe('Ai', function () {
         it('do not match input', function (done) {
             ai.input('understand : lksjfalsdkjf')
                 .then(data => {
-                    assert(data == scenario.understand)
+                    assert(data === scenario.understand)
                     done()
                 })
                 .catch(done)
