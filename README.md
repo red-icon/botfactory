@@ -1,7 +1,13 @@
 # BotFactory
 This make BotGame.
 
-## Ready
+## Usage
+```
+git clone https://github.com/red-icon/botfactory.git
+cd botfactory
+npm install
+```
+
 Please make setting.json
 
 ```
@@ -16,6 +22,11 @@ Please make setting.json
         }
     ]
 }
+```
+Please change [scenario.json](./secnario.json)
+
+```
+node src/index
 ```
 
 ## License

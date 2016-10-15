@@ -1,8 +1,5 @@
-const AiInterface = require('./interface/AiInterface')
-
-module.exports = class Ai extends AiInterface {
+module.exports = class Ai {
     constructor(scenario) {
-        super()
         this.scenario = scenario
         this.serif = scenario.serif
     }
