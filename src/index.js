@@ -10,7 +10,10 @@ const errorReport = function (error) {
 }
 
 twitter.on('receive', message => {
-    ai.input(message.value).then(message.format.bind(message)).then(twitter.send.bind(twitter)).catch(errorReport)
+    ai.input(message.value)
+        .then(message.format.bind(message))
+        .then(twitter.send.bind(twitter))
+        .catch(errorReport)
 })
 twitter.on('error', errorReport)
 

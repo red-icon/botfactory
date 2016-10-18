@@ -3,7 +3,6 @@ const Immutable = require('immutable')
 module.exports = class MessageTwitter {
     constructor(message) {
         this.message = Immutable.fromJS(message)
-        this.test = 'test'
     }
 
     get value() {

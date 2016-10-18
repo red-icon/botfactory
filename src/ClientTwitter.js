@@ -37,7 +37,7 @@ module.exports = class ClientTwitter extends EventEmitter {
 
     receiveReply(id) {
         var request = this.oauth.get(
-            'https://stream.twitter.com/1.1/statuses/filter.json?track=' + id,
+            'https://userstream.twitter.com/1.1/user.json?replies=all&track=' + id,
             this.setting.get('token'),
             this.setting.get('tokensecret'),
             null
@@ -81,8 +81,8 @@ module.exports = class ClientTwitter extends EventEmitter {
     }
 }
 
-/*
- var Twitter = require('./ClientTwitter')
- var twitter = new Twitter(require('../setting.json').twitter, 'twitter')
- twitter.tweet('test ' + new Date().toString())
- */
+var Twitter = require('./ClientTwitter')
+var twitter = new Twitter(require('../setting.json').twitter, 'keke_moto')
+twitter.on('receive', console.dir)
+twitter.on('error', console.dir)
+//twitter.tweet('test ' + new Date().toString())
