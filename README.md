@@ -3,9 +3,7 @@ This make BotGame.
 
 ## Usage
 ```
-git clone https://github.com/red-icon/botfactory.git
-cd botfactory
-npm install
+npm install botfactory
 ```
 
 Please make setting.json:
@@ -13,14 +11,13 @@ Please make setting.json:
 ```
 // setting.json
 {
-    "twitter": [
-        {
-            "key": "Consumer Key",
-            "secret": "Consumer Secret",
-            "token": "Access Token",
-            "tokensecret": "Access Token Secret"
-        }
-    ]
+    "twitter": {
+        "botname": "screen_name"
+        "key": "Consumer Key",
+        "secret": "Consumer Secret",
+        "token": "Access Token",
+        "tokensecret": "Access Token Secret"
+    }
 }
 ```
 Please change [scenario.json](./secnario.json)

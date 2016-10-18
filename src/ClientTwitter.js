@@ -4,7 +4,7 @@ const Immutable = require('immutable')
 const MessageTwitter = require('./MessageTwitter')
 
 module.exports = class ClientTwitter extends EventEmitter {
-    constructor(setting, id) {
+    constructor(setting) {
         super()
         this.setting = Immutable.fromJS(setting)
         this.oauth = new OAuth.OAuth(
@@ -16,7 +16,7 @@ module.exports = class ClientTwitter extends EventEmitter {
             null,
             'HMAC-SHA1')
         this._parseStream = ClientTwitter.clojure_parseStream()
-        this.receiveReply(id)
+        this.receiveReply(this.setting.get('botname'))
     }
 
     send(text) {
