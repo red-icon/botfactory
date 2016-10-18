@@ -3,7 +3,7 @@ const scenario = require('../scenario.json')
 const ClientTwitter = require('./ClientTwitter')
 const Ai = require('./Ai')
 
-const twitter = new ClientTwitter(setting.twitter, 'keke_moto')
+const twitter = new ClientTwitter(setting.twitter)
 const ai = new Ai(scenario)
 const errorReport = function (error) {
     console.dir(error)
