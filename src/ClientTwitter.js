@@ -16,14 +16,14 @@ module.exports = class ClientTwitter extends EventEmitter {
             null,
             'HMAC-SHA1')
         this._parseStream = ClientTwitter.clojure_parseStream()
-        this.receiveReply(this.setting.get('botname'))
+        this.receiveReply(this.setting.get('botName'))
     }
 
     send(text) {
         this.oauth.post(
             'https://api.twitter.com/1.1/statuses/update.json',
             this.setting.get('token'),
-            this.setting.get('tokensecret'),
+            this.setting.get('tokenSecret'),
             {status: text},
             'UTF-8',
             (error, data, response)=> {
@@ -39,13 +39,12 @@ module.exports = class ClientTwitter extends EventEmitter {
         var request = this.oauth.get(
             'https://userstream.twitter.com/1.1/user.json?replies=all&track=' + id,
             this.setting.get('token'),
-            this.setting.get('tokensecret'),
+            this.setting.get('tokenSecret'),
             null
         )
         request.on('response', response => {
             response.setEncoding('utf8')
             response.on('data', chunk => {
-                //console.dir(chunk)
                 var data = this._parseStream(chunk)
                 if (data)
                     this.emit('receive', new MessageTwitter(data))
@@ -81,8 +80,12 @@ module.exports = class ClientTwitter extends EventEmitter {
     }
 }
 
+/*
 var Twitter = require('./ClientTwitter')
-var twitter = new Twitter(require('../setting.json').twitter, 'keke_moto')
+var testData = require('../setting.json').twitter[0]
+testData.botName = "twitter"
+var twitter = new Twitter(testData)
 twitter.on('receive', console.dir)
 twitter.on('error', console.dir)
 //twitter.tweet('test ' + new Date().toString())
+*/
