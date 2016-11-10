@@ -1,14 +1,10 @@
 const assert = require('assert')
-const {Bot} = require('../src/Bot')
+const Bot = require('../src/Bot')
+const config = require('../config.json')
 
 describe('Bot', ()=> {
     it('#create', ()=> {
         var bot = Bot.create(config)
         assert(bot)
-    })
-
-    it('#stop', ()=>{
-        var bot = Bot.stop(Bot.create(config))
-        assert(!bot)
     })
 })

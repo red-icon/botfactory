@@ -1,17 +1,17 @@
-module.exports = class Ai {
-    constructor(scenario) {
-        this.scenario = scenario
-        this.serif = scenario.serif
-    }
+const R = require('ramda')
 
-    input(input) {
+var Ai = {
+    create(scenario) {
+        return R.clone(scenario)
+    },
+
+    input(message, ai) {
         return new Promise((resolve, reject) => {
-            this.serif.forEach(data => {
-                if (input.match(data.input)) {
-                    resolve(data.output)
-                }
-            })
-            resolve(this.scenario.noMatch)
+            var serif = R.find(data => new RegExp(data.input).test(message.value), ai.serif)
+            message.value = serif ? serif.output : ai.noMatch
+            resolve(message)
         })
     }
 }
+
+module.exports = R.map(value => R.curry(value), Ai)

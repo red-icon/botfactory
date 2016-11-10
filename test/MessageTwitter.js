@@ -1,5 +1,5 @@
 const assert = require('assert')
-const MessageTwitter = require('../src/MessageTwitter')
+const MessageTwitter = require('../src/adopters/MessageTwitter')
 
 describe('MessageTwitter', function () {
     const data = {text:'text',user:{screen_name:'name'}}

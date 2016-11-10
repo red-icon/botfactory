@@ -1,7 +1,7 @@
 const EventEmitter = require('events')
 const OAuth = require('oauth')
 const Immutable = require('immutable')
-const MessageTwitter = require('./MessageTwitter')
+const MessageTwitter = require('./adopters/MessageTwitter')
 
 module.exports = class ClientTwitter extends EventEmitter {
     constructor(setting) {
@@ -81,7 +81,7 @@ module.exports = class ClientTwitter extends EventEmitter {
 }
 
 /*
-var Twitter = require('./ClientTwitter')
+var Twitter = require('./Twitter')
 var testData = require('../setting.json').twitter[0]
 testData.botName = "twitter"
 var twitter = new Twitter(testData)
