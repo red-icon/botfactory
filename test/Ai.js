@@ -1,6 +1,6 @@
 const assert = require('assert')
 const Ai = require('../src/Ai')
-const scenario = require('./testScenario.json')
+const scenario = require('../scenario.json')
 const serif = scenario.serif
 
 describe('Ai', function () {
@@ -15,9 +15,9 @@ describe('Ai', function () {
                 .catch(done)
         })
         it('do not match input', function (done) {
-            ai.input('understand : lksjfalsdkjf')
+            ai.input('')
                 .then(data => {
-                    assert(data === scenario.understand)
+                    assert(data === scenario.noMatch)
                     done()
                 })
                 .catch(done)

@@ -11,7 +11,7 @@ module.exports = class Ai {
                     resolve(data.output)
                 }
             })
-            resolve(this.scenario.understand)
+            resolve(this.scenario.noMatch)
         })
     }
 }
