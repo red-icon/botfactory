@@ -1,8 +1,6 @@
 module.exports = class Error {
-    static debug(){
+    static debug(...errors){
         console.log('Debug')
-        arguments.forEach((argument) => {
-            console.dir(argument)
-        })
+        if(errors) errors.forEach(error => console.dir(error))
     }
 }

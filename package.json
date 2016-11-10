@@ -4,7 +4,7 @@
   "description": "This make BotGame.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
   "homepage": "https://github.com/red-icon/bot-factory#readme",
   "dependencies": {
     "immutable": "^3.8.1",
-    "oauth": "^0.9.14"
+    "oauth": "^0.9.14",
+    "ramda": "^0.22.1"
   },
   "devDependencies": {
     "mocha": "^3.1.1"
