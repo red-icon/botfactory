@@ -1,28 +1,29 @@
 const assert = require('assert')
 const Room = require('../src/Room')
-const config = require('../config.json')
+const configOrigin = require('../config.json')
+const config = configOrigin.test1
 
 describe('Room', () => {
     it('#create', () => {
         assert(Room.create())
     })
     it('#add', () => {
-        var before = Room.create()
-        var after = Room.add(before, config)
-        assert(after.size == before.size + 1)
+        const before = Room.create()
+        const after = Room.add(config, before)
+        assert(Object.keys(after).length == Object.keys(before).length + 1)
     })
     describe('#remove', ()=>{
         it('When normal', ()=> {
-            var test = Room.remove(config.name, Room.add(config, Room.create()))
+            const test = Room.remove(config.id, Room.add(config, Room.create()))
             assert.deepEqual(test, Room.create())
         })
         it('When room is empty', () => {
-            var testEmpty = Room.remove(config, Room.create())
+            const testEmpty = Room.remove(config.name, Room.create())
             assert.deepEqual(testEmpty, Room.create())
         })
         it('When bot does not exist',()=>{
-            var before = Room.add(config, Room.create())
-            var after = Room.remove('flakjd', before)
+            const before = Room.add(config, Room.create())
+            const after = Room.remove('flakjd', before)
             assert.deepEqual(after, before)
         })
     })

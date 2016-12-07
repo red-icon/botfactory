@@ -1,38 +1,26 @@
-const Ai = require('./Ai')
-const Error = require('./Error')
 const Path = require('path')
-const Immutable = require('immutable')
+const R = require('ramda')
+const Ai = require('./Ai')
+const Error = require('./lib/Error')
+const Utility = require('./lib/Utility')
 
-const defaultAdopter = ['twitter']
+const defaultAdopters = ['twitter']
 
-module.exports = {
-    create(config) {
-        var ai = new Ai(require(config.scenario))
-        return Immutable.fromJS(config.adopters.map(adopterConfig => {
-            var adopterPath = ''
-            if(-1 == defaultAdopter.indexOf(adopterConfig.name)){
-                adopterPath = adopterConfig.name
-            } else {
-                adopterPath = Path.join(__dirname, 'adopters', adopterConfig.name)
-            }
+const Bot = {
+    create(config){
+        return Utility.mapObj(Bot._createAdopter(config.scenario, defaultAdopters))(config.adopters)
+    },
 
-            try {
-                var Adopter = require(adopterPath)
-            }catch(error){
-                error.message = 'Adopter path is wrong : ' + adopterConfig.name
-                throw error
-            }
-            var adopter = new Adopter(adopterConfig.config)
-            adopter.on('receive', message => {
-                ai.input(message.value)
-                    .then(answer => adopter.send(answer, message.option))
-                    .then(() => {
-                        message = null
-                    })
-                    .catch(Error.debug)
-            })
-            adopter.on('error', Error.debug)
-            return adopter
-        }))
-    }
+    _createAdopter: R.curry((scenario, defaultAdopters, config, path)=>{
+        path = R.any(R.equals(path), defaultAdopters) ? Path.join(__dirname, 'adopters', path) : path
+        const Adopter = require(path)
+        const inputAi = Ai.input(R.__, Ai.create(scenario))
+        return R.pipe(
+            Adopter.create,
+            adopter => Utility.on('receive', R.composeP(Adopter.send(R.__, adopter), inputAi), adopter)//,
+            // Utility.on('error', Error.error)
+        )(config)
+    }),
 }
+
+module.exports = R.map(R.curry, Bot)

@@ -2,7 +2,7 @@ const R = require('ramda')
 
 var Ai = {
     create(scenario) {
-        return R.clone(scenario)
+        return scenario
     },
 
     input(message, ai) {

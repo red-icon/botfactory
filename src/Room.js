@@ -3,17 +3,15 @@ const R = require('ramda')
 
 var Room = {
     create(){
-        return R.clone({})
+        return {}
     },
 
     add(config, room){
-        room[config.name] = Bot.create(config)
-        return room
+        return R.assoc(R.prop('id')(config), Bot.create(config), room)
     },
 
-    remove(room, name){
-        delete room[name]
-        return room
+    remove(id, room){
+        return R.dissoc(id, room)
     }
 }
 

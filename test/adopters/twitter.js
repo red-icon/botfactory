@@ -1,21 +1,33 @@
 const assert = require('assert')
+const R = require('ramda')
 const Twitter = require('../../src/adopters/twitter')
+const Utility = require('../../src/lib/Utility')
 const configOrigin = require('../../config.json')
-const config = configOrigin.adopters.twitter
+const config = configOrigin.test1.adopters.twitter
+const Message = {
+    value: '',
+    option: {
+        destination: ''
+    }
+}
 
-describe('adopter twitter', ()=>{
+describe('adopter/twitter', ()=>{
     it('#create', ()=>{
-        var twitter = Twitter.create(config)
+        const twitter = Twitter.create(config)
         assert(twitter)
     })
-    it('#send', (done)=>{
-        var twitter = Twitter.create(config)
-        twitter.on('receive', ()=>{
-            done()
-        })
-        twitter.on('error', ()=>{
-            done(-1)
-        })
-        twitter.send('test')
-    })
+    // it('#send', (done)=>{
+    //     let message = R.clone(Message)
+    //     message.value = 'Sorry. I mistaked destination. ' + new Date().toISOString()
+    //     message.option.destination = 'Tester01182'
+    //     R.pipe(
+    //         Twitter.create,
+    //         Utility.on('sent', ()=>{done()}),
+    //         Utility.on('error', done),
+    //         Twitter.send(message)
+    //     )(config)
+    // })
+    // it('#receive', done => {
+    //     var message = R.clone(Message)
+    // })
 })

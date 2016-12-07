@@ -1,10 +1,12 @@
 const assert = require('assert')
 const Bot = require('../src/Bot')
-const config = require('../config.json')
+const configOrigin = require('../config.json')
+const config = configOrigin.test1
 
 describe('Bot', ()=> {
     it('#create', ()=> {
-        var bot = Bot.create(config)
+        let bot = Bot.create(config)
         assert(bot)
+        bot = null
     })
 })
