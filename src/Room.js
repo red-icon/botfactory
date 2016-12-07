@@ -1,7 +1,7 @@
 const Bot = require('./Bot')
 const R = require('ramda')
 
-var Room = {
+const Room = {
     create(){
         return {}
     },
